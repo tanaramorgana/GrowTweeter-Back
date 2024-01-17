@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Likes {
+  id String @id @db.Uuid @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("likes")
+}
+
+model Tweets {
+  id String @id @db.Uuid @default(uuid())
+  type Type @default(T)
+  content String @db.VarChar(255)
+  created_at DateTime @default(now()) @map("created_at")
+
+  @@map("tweets")
+}
+
+model Users {
+  id String @id @db.Uuid @default(uuid())
+  name String @db.VarChar(50)
+  created_at DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+model Replys {
+  id String @id @db.Uuid @default(uuid())
+  content String @db.VarChar(255)
+  created_at DateTime @default(now()) @map("created_at")
+
+  @@map("replys")
+}
+
+model Follows {
+  id String @id @db.Uuid @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("follows")
+}
+
+enum Type {
+  T
+  R
+}
